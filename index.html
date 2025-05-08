@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>A-Frame Scene Example</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene stats>
-      <!-- Управління ресурсами -->
-      <a-assets>
-        <!-- Текстура -->
-        <img id="canestra" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg" crossorigin="anonymous">
-        <img id="grid" src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/uvgrid/UV_Grid_Sm.jpg" crossorigin="anonymous">
-        
-        <!-- Власний шрифт -->
-        <a-asset-item id="font-msdf" src="https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/mozillavr/mozillavr-msdf.json"></a-asset-item>
-        
-        <!-- 3D-моделі -->
-        <a-asset-item id="brainstem" src="https://cdn.aframe.io/test-models/models/glTF/BrainStem/BrainStem.gltf"></a-asset-item>
-        <a-asset-item id="crate-obj" src="https://cdn.aframe.io/test-models/models/obj/crate/crate.obj"></a-asset-item>
-        <a-asset-item id="crate-mtl" src="https://cdn.aframe.io/test-models/models/obj/crate/crate.mtl"></a-asset-item>
-        
-        <!-- Відео -->
-        <video id="city" src="https://cdn.aframe.io/360-video/factory.mp4" autoplay loop="true" crossorigin="anonymous"></video>
-      </a-assets>
 
+<head>
+  <meta charset="utf-8">
+  <title>A-Frame Scene Example</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+  <a-scene embedded arjs="sourceType: webcam;">
+    <!-- Управління ресурсами -->
+    <a-assets>
+      <!-- Текстура -->
+      <img id="canestra"
+        src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg"
+        crossorigin="anonymous">
+      <img id="grid"
+        src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/uvgrid/UV_Grid_Sm.jpg"
+        crossorigin="anonymous">
+
+      <!-- Власний шрифт -->
+      <a-asset-item id="font-msdf"
+        src="https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/mozillavr/mozillavr-msdf.json"></a-asset-item>
+
+      <!-- 3D-моделі -->
+      <a-asset-item id="brainstem"
+        src="https://cdn.aframe.io/test-models/models/glTF/BrainStem/BrainStem.gltf"></a-asset-item>
+      <a-asset-item id="crate-obj" src="https://cdn.aframe.io/test-models/models/obj/crate/crate.obj"></a-asset-item>
+      <a-asset-item id="crate-mtl" src="https://cdn.aframe.io/test-models/models/obj/crate/crate.mtl"></a-asset-item>
+
+      <!-- Відео -->
+      <video id="city" src="https://cdn.aframe.io/360-video/factory.mp4" autoplay loop="true"
+        crossorigin="anonymous"></video>
+    </a-assets>
+
+    <!-- Маркер для відображення об'єктів -->
+    <a-marker preset="hiro">
       <!-- Фон (замінимо на відеосферу) -->
       <a-videosphere src="#city"></a-videosphere>
 
       <!-- Тор з анімацією кольору -->
       <a-torus position="-2 1 -5" radius="1.2" src="#grid"
-               animation="property: material.color; type: color; from: green; to: red; dur:10000; loop:true">
+        animation="property: material.color; type: color; from: green; to: red; dur:10000; loop:true">
       </a-torus>
 
       <!-- Площина з текстурою -->
@@ -42,15 +54,15 @@
 
       <!-- Torus Knot з анімацією обертання -->
       <a-torus-knot color="orange" radius="1.2" position="-3 1 -5"
-                    animation="property: rotation; to: 0 0 360; dur:10000; loop:true">
+        animation="property: rotation; to: 0 0 360; dur:10000; loop:true">
       </a-torus-knot>
 
       <!-- Площина для тексту -->
       <a-plane src="#grid" width="9" height="2" position="3 1 -9"></a-plane>
 
       <!-- Текст з власним шрифтом -->
-      <a-text value="Вітаємо у браузерній VR!" color="black" width="10" position="-0.5 1 -6"
-              font="#font-msdf" negate="false">
+      <a-text value="Вітаємо у браузерній VR!" color="black" width="10" position="-0.5 1 -6" font="#font-msdf"
+        negate="false">
       </a-text>
 
       <!-- Модель OBJ + MTL -->
@@ -61,6 +73,11 @@
 
       <!-- Джерело світла -->
       <a-light type="point" intensity="1.5" position="4 0 0"></a-light>
-    </a-scene>
-  </body>
+    </a-marker>
+
+    <!-- Камера AR -->
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+
 </html>
