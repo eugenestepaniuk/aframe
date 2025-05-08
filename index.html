@@ -75,6 +75,27 @@
       <a-light type="point" intensity="1.5" position="4 0 0"></a-light>
     </a-marker>
 
+    <!-- Маркер hiro -->
+    <a-marker preset="hiro">
+      <a-torus position="0 0.5 0" radius="1" src="#grid"
+        animation="property: rotation; to: 0 360 0; dur:5000; loop:true">
+      </a-torus>
+    </a-marker>
+
+    <!-- Маркер kanji -->
+    <a-marker preset="kanji">
+      <a-obj-model src="#crate-obj" mtl="#crate-mtl" position="0 0 0" scale="0.5 0.5 0.5"
+        animation="property: rotation; to: 0 360 0; dur:7000; loop:true">
+      </a-obj-model>
+    </a-marker>
+
+    <!-- Власний маркер (заміни URL або залиш локальний шлях pattern-marker.patt) -->
+    <a-marker type="pattern" url="pattern-marker.patt">
+      <a-gltf-model src="#brainstem" position="0 0 0" scale="0.02 0.02 0.02"
+        animation="property: rotation; to: 0 360 0; dur:8000; loop:true">
+      </a-gltf-model>
+    </a-marker>
+
     <!-- Камера AR -->
     <a-entity camera></a-entity>
   </a-scene>
