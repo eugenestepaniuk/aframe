@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Solar System AR</title>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!-- MindAR -->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      #loading { position: absolute; width: 100%; height: 100%; background: black; color: white; display: flex; justify-content: center; align-items: center; font-size: 24px; }
+    </style>
+  </head>
+  <body>
+    <div id="loading">Loading AR...</div>
+
+    <a-scene mindar-image="imageTargetSrc: ./my-marker.mind; autoStart: true;" embedded color-space="sRGB" renderer="colorManagement: true; physicallyCorrectLights">
+      <a-assets>
+        <!-- TEXTURES -->
+        <img id="sunTexture" src="https://i.imgur.com/2yffcWj.jpg">
+        <img id="mercuryTexture" src="https://i.imgur.com/1VPeuEH.jpg">
+        <img id="venusTexture" src="https://i.imgur.com/q6xQqFR.jpg">
+        <img id="earthTexture" src="https://i.imgur.com/BQpsZjG.jpg">
+        <img id="marsTexture" src="https://i.imgur.com/KJEXfBF.jpg">
+        <img id="jupiterTexture" src="https://i.imgur.com/DLKFQfu.jpg">
+        <img id="saturnTexture" src="https://i.imgur.com/jM2Wzfi.jpg">
+        <img id="uranusTexture" src="https://i.imgur.com/LjF9FQm.jpg">
+        <img id="neptuneTexture" src="https://i.imgur.com/vUMKQpK.jpg">
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!-- ANCHOR MARKER -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- Sun -->
+        <a-sphere radius="0.5" src="#sunTexture" position="0 0 0"></a-sphere>
+
+        <!-- Mercury -->
+        <a-sphere radius="0.1" src="#mercuryTexture" position="0.8 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 8800"></a-sphere>
+
+        <!-- Venus -->
+        <a-sphere radius="0.12" src="#venusTexture" position="1.2 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 22470"></a-sphere>
+
+        <!-- Earth -->
+        <a-sphere radius="0.13" src="#earthTexture" position="1.6 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 36500"></a-sphere>
+
+        <!-- Mars -->
+        <a-sphere radius="0.11" src="#marsTexture" position="2.0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 68700"></a-sphere>
+
+        <!-- Jupiter -->
+        <a-sphere radius="0.3" src="#jupiterTexture" position="2.8 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 433200"></a-sphere>
+
+        <!-- Saturn -->
+        <a-sphere radius="0.25" src="#saturnTexture" position="3.4 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 1075900"></a-sphere>
+
+        <!-- Uranus -->
+        <a-sphere radius="0.2" src="#uranusTexture" position="3.8 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 3068500"></a-sphere>
+
+        <!-- Neptune -->
+        <a-sphere radius="0.19" src="#neptuneTexture" position="4.2 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 6019000"></a-sphere>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      document.querySelector('a-scene').addEventListener('loaded', () => {
+        document.getElementById('loading').style.display = 'none';
+      });
+    </script>
+  </body>
+</html>
