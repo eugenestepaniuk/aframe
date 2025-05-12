@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="aframe/aframe.min.js"></script>
+    <script src="AR.js-master/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body>
+    <a-scene embedded arjs>
+      <!-- Камера -->
+      <a-camera-static/>
+
+      <!-- Маркери -->
+      <a-marker preset="custom" type="pattern" url="markerA.patt" id="A">
+        <a-sphere id="pointA" position="0 0 0" radius="0.1" color="red"></a-sphere>
+      </a-marker>
+      <a-marker preset="custom" type="pattern" url="markerB.patt" id="B">
+        <a-sphere id="pointB" position="0 0 0" radius="0.1" color="green"></a-sphere>
+      </a-marker>
+      <a-marker preset="custom" type="pattern" url="markerC.patt" id="C">
+        <a-sphere id="pointC" position="0 0 0" radius="0.1" color="blue"></a-sphere>
+      </a-marker>
+      <a-marker preset="custom" type="pattern" url="markerD.patt" id="D">
+        <a-sphere id="pointD" position="0 0 0" radius="0.1" color="yellow"></a-sphere>
+      </a-marker>
+
+      <!-- Скрипт для розрахунків -->
+      <script>
+        AFRAME.registerComponent('geometry-analyzer', {
+          tick: function () {
+            const getPos = id => {
+              const el = document.querySelector(id);
+              if (!el) return null;
+              const p = el.object3D.getWorldPosition(new THREE.Vector3());
+              return [p.x, p.y, p.z];
+            };
+
+            const A = getPos('#pointA');
+            const B = getPos('#pointB');
+            const C = getPos('#pointC');
+            const D = getPos('#pointD');
+
+            if (A && B && C && D) {
+              const dist = (p1, p2) => Math.sqrt(
+                (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2 + (p1[2] - p2[2]) ** 2
+              );
+
+              const perim = dist(A, B) + dist(B, C) + dist(C, D) + dist(D, A);
+
+              const triangleArea = (p1, p2, p3) => {
+                const a = dist(p1, p2);
+                const b = dist(p2, p3);
+                const c = dist(p3, p1);
+                const s = (a + b + c) / 2;
+                return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+              };
+
+              const areaABC = triangleArea(A, B, C);
+              const areaACD = triangleArea(A, C, D);
+              const areaABD = triangleArea(A, B, D);
+              const areaBCD = triangleArea(B, C, D);
+
+              console.clear();
+              console.log('Периметр чотирикутника:', perim.toFixed(3));
+              console.log('Площі трикутників:');
+              console.log('ABC:', areaABC.toFixed(3));
+              console.log('ACD:', areaACD.toFixed(3));
+              console.log('ABD:', areaABD.toFixed(3));
+              console.log('BCD:', areaBCD.toFixed(3));
+            }
+          }
+        });
+      </script>
+
+      <a-entity geometry-analyzer></a-entity>
+    </a-scene>
+  </body>
+</html>
